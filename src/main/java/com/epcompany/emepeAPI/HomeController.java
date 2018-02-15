@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.epcompany.emepeAPI.model.Persona;
-
 /**
  * Handles requests for the application home page.
  */
@@ -40,7 +38,7 @@ public class HomeController {
 		return "home";
 	}
 	
-	@RequestMapping(value = "/persona", method = RequestMethod.GET)
+	/*@RequestMapping(value = "/persona", method = RequestMethod.GET)
 	public @ResponseBody Persona getPersona(@RequestParam(value="nombre", required=true) String nombre) {
 		Persona p = new Persona();
 		
@@ -54,6 +52,6 @@ public class HomeController {
 		Persona error = new Persona();
 		error.setNombre("Has fet un Honori");
 		return error;
-	}
+	}*/
 	
 }
