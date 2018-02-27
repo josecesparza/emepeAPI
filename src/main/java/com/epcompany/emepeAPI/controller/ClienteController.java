@@ -24,7 +24,7 @@ public class ClienteController {
 		return clientes;
 	}*/
 	
-	@RequestMapping(value = "/clientes", method = RequestMethod.GET)
+	@RequestMapping(value = "/cliente/getClientes", method = RequestMethod.GET)
 	public @ResponseBody ArrayList<Cliente> getClientes() {
 		ClienteDAO clienteDAO = new ClienteDAO();
 		

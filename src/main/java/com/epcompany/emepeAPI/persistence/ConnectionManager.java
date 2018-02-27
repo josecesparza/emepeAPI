@@ -1,6 +1,9 @@
 package com.epcompany.emepeAPI.persistence;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.sql.DataSource;
 import org.apache.commons.dbcp.ConnectionFactory;
 import org.apache.commons.dbcp.DriverManagerConnectionFactory;
@@ -19,7 +22,7 @@ public class ConnectionManager {
 	static final String JDBC_PASS = "root";
 	
 	// Connection object
-	private Connection connection;
+	private static Connection connection;
 
 	private static GenericObjectPool gPool = null;
 	
@@ -27,7 +30,7 @@ public class ConnectionManager {
 		DataSource dataSource;
 		try {
 			dataSource = this.setUpPool();
-			this.setConnection(dataSource.getConnection());
+			connection = dataSource.getConnection();
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -52,16 +55,31 @@ public class ConnectionManager {
 		return new PoolingDataSource(gPool);
 	}
 
-	public GenericObjectPool getConnectionPool() {
+	public static GenericObjectPool getConnectionPool() {
 		return gPool;
+	}
+	
+	public static int getLastGenerated(String tabla){
+		int res = 0;
+		ResultSet rSet = null;
+		PreparedStatement pstmtObj = null;
+		try {
+			
+			pstmtObj = connection.prepareStatement("select auto_increment from INFORMATION_SCHEMA.TABLES where table_name = '"+tabla+"'");
+			rSet = pstmtObj.executeQuery();
+			rSet.next();
+			res = rSet.getInt(1);
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return res;
 	}
 
 		
-	public Connection getConnection() {
+	public static Connection getConnection() {
 		return connection;
 	}
-
-	public void setConnection(Connection connection) {
-		this.connection = connection;
-	}
+	
 }

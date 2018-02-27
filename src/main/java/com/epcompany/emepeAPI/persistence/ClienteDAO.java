@@ -12,7 +12,8 @@ public class ClienteDAO {
 	private Connection connection;
 	
 	public ClienteDAO() {
-		this.connection = new ConnectionManager().getConnection();
+		new ConnectionManager();
+		this.connection = ConnectionManager.getConnection();
 	}
 	
 	public ArrayList<Cliente> getClientes() {
