@@ -2,24 +2,24 @@ package com.epcompany.emepeAPI.model;
 
 import java.util.ArrayList;
 
-public class CliRes {
-	private ArrayList<Cliente> clientes;
+public class ResCli {
+	private ArrayList<Restaurante> restaurantes;
 	private boolean favorito;
 	private float valoracion;
 	
-	public CliRes(ArrayList<Cliente> clientes, boolean favorito, float valoracion) {
+	public ResCli(ArrayList<Restaurante> restaurantes, boolean favorito, float valoracion) {
 		super();
-		this.clientes = clientes;
+		this.restaurantes = restaurantes;
 		this.favorito = favorito;
 		this.valoracion = valoracion;
 	}
 
-	public ArrayList<Cliente> getClientes() {
-		return clientes;
+	public ArrayList<Restaurante> getRestaurantes() {
+		return restaurantes;
 	}
 
-	public void setClientes(ArrayList<Cliente> clientes) {
-		this.clientes = clientes;
+	public void setRestaurantes(ArrayList<Restaurante> restaurantes) {
+		this.restaurantes = restaurantes;
 	}
 
 	public boolean isFavorito() {
@@ -40,7 +40,7 @@ public class CliRes {
 
 	@Override
 	public String toString() {
-		return "CliRes [clientes=" + clientes + ", favorito=" + favorito + ", valoracion=" + valoracion + "]";
+		return "ResCli [restaurantes=" + restaurantes + ", favorito=" + favorito + ", valoracion=" + valoracion + "]";
 	}
-	
+		
 }

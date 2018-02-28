@@ -1,5 +1,7 @@
 package com.epcompany.emepeAPI.model;
 
+import java.util.ArrayList;
+
 public class Ingrediente {
 
 	private int id;
@@ -8,10 +10,18 @@ public class Ingrediente {
 	private boolean vegetariano;
 	private boolean gluten;
 	private boolean lactosa;
+	ArrayList<Producto> productos;
 	
 	public Ingrediente() {
 		
 	}
+
+	
+	public Ingrediente(String nombre) {
+		super();
+		this.nombre = nombre;
+	}
+
 
 	public Ingrediente(String nombre, boolean vegano, boolean vegetariano, boolean gluten, boolean lactosa) {
 		super();
@@ -31,6 +41,24 @@ public class Ingrediente {
 		this.gluten = gluten;
 		this.lactosa = lactosa;
 	}
+		
+	public Ingrediente(String nombre, ArrayList<Producto> productos) {
+		super();
+		this.nombre = nombre;
+		this.productos = productos;
+	}
+
+	public Ingrediente(String nombre, boolean vegano, boolean vegetariano, boolean gluten, boolean lactosa,
+			ArrayList<Producto> productos) {
+		super();
+		this.nombre = nombre;
+		this.vegano = vegano;
+		this.vegetariano = vegetariano;
+		this.gluten = gluten;
+		this.lactosa = lactosa;
+		this.productos = productos;
+	}
+	
 
 	public int getId() {
 		return id;
