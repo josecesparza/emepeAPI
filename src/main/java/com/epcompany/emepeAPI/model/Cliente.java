@@ -1,6 +1,7 @@
 package com.epcompany.emepeAPI.model;
 
 import java.sql.Date;
+import java.util.ArrayList;
 
 public class Cliente {
 
@@ -15,6 +16,7 @@ public class Cliente {
 	private String localidad;
 	private String correo;
 	private TarjCredito tarjCredito;
+	private ArrayList<ResCli> restaurantes;
 	
 	public Cliente() {
 		super();
@@ -29,7 +31,7 @@ public class Cliente {
 	}
 
 	public Cliente(int id, String usuario, String pass, boolean registrado, String nombre, String apellidos,
-			Date fechaNac, boolean genero, String localidad, String correo, TarjCredito tarjCredito) {
+			Date fechaNac, boolean genero, String localidad, String correo, TarjCredito tarjCredito, ArrayList<ResCli> restaurantes) {
 		super();
 		this.id = id;
 		this.usuario = usuario;
@@ -42,6 +44,21 @@ public class Cliente {
 		this.localidad = localidad;
 		this.correo = correo;
 		this.tarjCredito = tarjCredito;
+		this.restaurantes = restaurantes;
+	}
+	
+	
+
+	public Cliente(boolean registrado, String nombre, String apellidos, Date fechaNac, boolean genero, String localidad,
+			String correo) {
+		super();
+		this.registrado = registrado;
+		this.nombre = nombre;
+		this.apellidos = apellidos;
+		this.fechaNac = fechaNac;
+		this.genero = genero;
+		this.localidad = localidad;
+		this.correo = correo;
 	}
 
 	public int getId() {
@@ -132,14 +149,19 @@ public class Cliente {
 		this.tarjCredito = tarjCredito;
 	}
 
+	public ArrayList<ResCli> getRestaurantes() {
+		return restaurantes;
+	}
+
+	public void setRestaurantes(ArrayList<ResCli> restaurantes) {
+		this.restaurantes = restaurantes;
+	}
+
 	@Override
 	public String toString() {
 		return "Cliente [id=" + id + ", usuario=" + usuario + ", pass=" + pass + ", registrado=" + registrado
 				+ ", nombre=" + nombre + ", apellidos=" + apellidos + ", fechaNac=" + fechaNac + ", genero=" + genero
 				+ ", localidad=" + localidad + ", correo=" + correo + ", tarjCredito=" + tarjCredito + "]";
 	}
-	
-	
-	
 	
 }
