@@ -5,6 +5,20 @@ public class TarjCredito {
 	private int numero;
 	private Cliente cliente;
 	
+	
+	public TarjCredito(int id, int numero) {
+		super();
+		this.id = id;
+		this.numero = numero;
+	}
+
+	public TarjCredito(int id, int numero, Cliente cliente) {
+		super();
+		this.id = id;
+		this.numero = numero;
+		this.cliente = cliente;
+	}
+
 	public TarjCredito(int numero) {
 		super();
 		this.numero = numero;

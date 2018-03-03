@@ -5,28 +5,27 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import com.epcompany.emepeAPI.model.Ingrediente;
+import com.epcompany.emepeAPI.model.Producto;
 import com.mysql.jdbc.Statement;
 
-public class IngredienteDAO {
+public class ProductoDAO {
+private Connection connection;
 	
-	private Connection connection;
-	
-	public IngredienteDAO() {
+	public ProductoDAO() {
 		new ConnectionManager();
 		this.connection = ConnectionManager.getConnection();
 	}
 	
-	public ArrayList<Ingrediente> getIngredientes(){
-		ArrayList<Ingrediente> ingredientes = new ArrayList<Ingrediente>();
+	public ArrayList<Producto> getProductos(){
+		ArrayList<Producto> productos = new ArrayList<Producto>();
 		ResultSet rsObj = null;
 		PreparedStatement pstmtObj = null;
 		try {
-			pstmtObj = connection.prepareStatement("SELECT * FROM ingrediente");
+			pstmtObj = connection.prepareStatement("SELECT * FROM producto");
 			rsObj = pstmtObj.executeQuery();
 			while (rsObj.next()) {
-				Ingrediente ingrediente = new Ingrediente(rsObj.getInt(1), rsObj.getString(2), rsObj.getBoolean(3), rsObj.getBoolean(4), rsObj.getBoolean(5), rsObj.getBoolean(6));
-				ingredientes.add(ingrediente);
+				Producto producto = new Producto(rsObj.getInt(1), rsObj.getString(2), rsObj.getFloat(3), rsObj.getFloat(4), rsObj.getString(5), rsObj.getDate(6), rsObj.getDate(6));
+				productos.add(producto);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -50,18 +49,18 @@ public class IngredienteDAO {
 		}
 		
 		
-		return ingredientes;
+		return productos;
 	}
 	
-	public Ingrediente getIngredienteById(int id){
+	public Producto getProductoById(int id){
 		ResultSet rsObj = null;
 		PreparedStatement pstmtObj = null;
-		Ingrediente ingrediente = null;
+		Producto producto = null;
 		try {
-			pstmtObj = connection.prepareStatement("SELECT * FROM ingrediente WHERE idingrediente="+id);
+			pstmtObj = connection.prepareStatement("SELECT * FROM producto WHERE idproducto="+id);
 			rsObj = pstmtObj.executeQuery();
 			rsObj.next();
-			ingrediente = new Ingrediente(rsObj.getInt(1), rsObj.getString(2), rsObj.getBoolean(3), rsObj.getBoolean(4), rsObj.getBoolean(5), rsObj.getBoolean(6));
+			producto = new Producto(rsObj.getInt(1), rsObj.getString(2), rsObj.getFloat(3), rsObj.getFloat(4), rsObj.getString(5), rsObj.getDate(6), rsObj.getDate(6));
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -85,18 +84,18 @@ public class IngredienteDAO {
 		}
 		
 		
-		return ingrediente;
+		return producto;
 	}
 	
-	public Ingrediente getIngredienteByName(String nombre){
+	public Producto getProductoByNameAndRestaurant(String nombre, int idRestaurante){
 		ResultSet rsObj = null;
 		PreparedStatement pstmtObj = null;
-		Ingrediente ingrediente = null;
+		Producto producto = null;
 		try {
-			pstmtObj = connection.prepareStatement("SELECT * FROM ingrediente WHERE nombre="+nombre);
+			pstmtObj = connection.prepareStatement("SELECT * FROM producto WHERE nombre="+nombre+"AND idrestaurante="+idRestaurante);
 			rsObj = pstmtObj.executeQuery();
 			
-			ingrediente = new Ingrediente(rsObj.getInt(1), rsObj.getString(2), rsObj.getBoolean(3), rsObj.getBoolean(4), rsObj.getBoolean(5), rsObj.getBoolean(6));
+			producto = new Producto(rsObj.getInt(1), rsObj.getString(2), rsObj.getFloat(3), rsObj.getFloat(4), rsObj.getString(5), rsObj.getDate(6), rsObj.getDate(6));
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -120,22 +119,25 @@ public class IngredienteDAO {
 		}
 		
 		
-		return ingrediente;
+		return producto;
 	}
 	
-	public Ingrediente insertarIngrediente(Ingrediente ingrediente) {
+	public Producto insertarProducto(Producto producto, int idRestaurante) {
 				
 		try {
-			String insertTableSQL = "INSERT INTO ingrediente"
-				+ "(nombre, vegano, vegetariano, gluten, lactosa) VALUES"
-				+ "(?,?,?,?,?)";
+			String insertTableSQL = "INSERT INTO producto"
+				+ "(nombre, precio, peso, descripcion, fechaElab, fechaCad, idRestaurante) VALUES"
+				+ "(?,?,?,?,?,?,?)";
 	        PreparedStatement preparedStatement = connection.prepareStatement(insertTableSQL, Statement.RETURN_GENERATED_KEYS);
 	     
-	        preparedStatement.setString(1, ingrediente.getNombre());
-			preparedStatement.setBoolean(2, ingrediente.isVegano());
-			preparedStatement.setBoolean(3, ingrediente.isVegetariano());
-			preparedStatement.setBoolean(4, ingrediente.isGluten());
-			preparedStatement.setBoolean(5, ingrediente.isLactosa());
+	        preparedStatement.setString(1, producto.getNombre());
+			preparedStatement.setFloat(2, producto.getPrecio());
+			preparedStatement.setFloat(3, producto.getPeso());
+			preparedStatement.setString(4, producto.getDescripcion());
+			preparedStatement.setDate(5, producto.getFechaElab());
+			preparedStatement.setDate(6, producto.getFechaCad());
+			preparedStatement.setInt(7, idRestaurante);
+			
         
 
 	        int affectedRows = preparedStatement.executeUpdate();
@@ -148,7 +150,7 @@ public class IngredienteDAO {
 	        try {
 	        	ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
 	        	if (generatedKeys.next()) {
-	                ingrediente.setId(generatedKeys.getInt(1));
+	                producto.setId(generatedKeys.getInt(1));
 	            }
 	            else {
 	                throw new SQLException("Creating user failed, no ID obtained.");
@@ -166,15 +168,15 @@ public class IngredienteDAO {
 			return null;
             
 		}
-		return ingrediente;
+		return producto;
 	}
 	
-	public void deleteIngredienteById(int id) {
+	public void deleteProductoById(int id) {
 		PreparedStatement pstmtObj = null;
 		
 		try {
-			pstmtObj = connection.prepareStatement("DELETE FROM ingrediente " +
-	                "WHERE idingrediente = "+id);
+			pstmtObj = connection.prepareStatement("DELETE FROM producto " +
+	                "WHERE idproducto = "+id);
 		    pstmtObj.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -195,18 +197,19 @@ public class IngredienteDAO {
 		
 	}
 	
-	public void updateIngrediente(Ingrediente ingrediente) {
+	public void updateProducto(Producto producto) {
 		PreparedStatement pstmtObj = null;
 		try {
 			pstmtObj = connection.prepareStatement(
-		      "UPDATE ingrediente SET nombre = ?, vegano = ?, vegetariano = ?, gluten = ?, lactosa = ? WHERE idingrediente = ?");
+		      "UPDATE producto SET nombre = ?, precio = ?, peso = ?, descripcion = ?, fechaElab = ?, fechaCad = ? WHERE idproducto = ?");
 
-			pstmtObj.setString(1, ingrediente.getNombre());
-			pstmtObj.setBoolean(2, ingrediente.isVegano());
-			pstmtObj.setBoolean(3, ingrediente.isVegetariano());
-			pstmtObj.setBoolean(4, ingrediente.isGluten());
-			pstmtObj.setBoolean(5, ingrediente.isLactosa());
-			pstmtObj.setInt(6,  ingrediente.getId());
+			pstmtObj.setString(1, producto.getNombre());
+			pstmtObj.setFloat(2, producto.getPrecio());
+			pstmtObj.setFloat(3, producto.getPeso());
+			pstmtObj.setString(4, producto.getDescripcion());
+			pstmtObj.setDate(5, producto.getFechaElab());
+			pstmtObj.setDate(6,  producto.getFechaCad());
+			pstmtObj.setInt(7,  producto.getId());
 			
 		    pstmtObj.executeUpdate();
 		} catch (SQLException e) {
@@ -226,5 +229,4 @@ public class IngredienteDAO {
 			}
 		}
 	}
-
 }

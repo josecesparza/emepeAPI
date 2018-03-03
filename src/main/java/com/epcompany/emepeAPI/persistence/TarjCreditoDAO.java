@@ -5,28 +5,28 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import com.epcompany.emepeAPI.model.Ingrediente;
+
+import com.epcompany.emepeAPI.model.TarjCredito;
 import com.mysql.jdbc.Statement;
 
-public class IngredienteDAO {
+public class TarjCreditoDAO {
+private Connection connection;
 	
-	private Connection connection;
-	
-	public IngredienteDAO() {
+	public TarjCreditoDAO() {
 		new ConnectionManager();
 		this.connection = ConnectionManager.getConnection();
 	}
 	
-	public ArrayList<Ingrediente> getIngredientes(){
-		ArrayList<Ingrediente> ingredientes = new ArrayList<Ingrediente>();
+	public ArrayList<TarjCredito> getTarjCreditos(){
+		ArrayList<TarjCredito> tarjCreditos = new ArrayList<TarjCredito>();
 		ResultSet rsObj = null;
 		PreparedStatement pstmtObj = null;
 		try {
-			pstmtObj = connection.prepareStatement("SELECT * FROM ingrediente");
+			pstmtObj = connection.prepareStatement("SELECT * FROM tarjCredito");
 			rsObj = pstmtObj.executeQuery();
 			while (rsObj.next()) {
-				Ingrediente ingrediente = new Ingrediente(rsObj.getInt(1), rsObj.getString(2), rsObj.getBoolean(3), rsObj.getBoolean(4), rsObj.getBoolean(5), rsObj.getBoolean(6));
-				ingredientes.add(ingrediente);
+				TarjCredito tarjCredito = new TarjCredito(rsObj.getInt(1), rsObj.getInt(2));
+				tarjCreditos.add(tarjCredito);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -50,18 +50,18 @@ public class IngredienteDAO {
 		}
 		
 		
-		return ingredientes;
+		return tarjCreditos;
 	}
 	
-	public Ingrediente getIngredienteById(int id){
+	public TarjCredito getTarjCreditoById(int id){
 		ResultSet rsObj = null;
 		PreparedStatement pstmtObj = null;
-		Ingrediente ingrediente = null;
+		TarjCredito tarjCredito = null;
 		try {
-			pstmtObj = connection.prepareStatement("SELECT * FROM ingrediente WHERE idingrediente="+id);
+			pstmtObj = connection.prepareStatement("SELECT * FROM tarjCredito WHERE idtarj="+id);
 			rsObj = pstmtObj.executeQuery();
 			rsObj.next();
-			ingrediente = new Ingrediente(rsObj.getInt(1), rsObj.getString(2), rsObj.getBoolean(3), rsObj.getBoolean(4), rsObj.getBoolean(5), rsObj.getBoolean(6));
+			tarjCredito = new TarjCredito(rsObj.getInt(1), rsObj.getInt(2));
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -85,18 +85,18 @@ public class IngredienteDAO {
 		}
 		
 		
-		return ingrediente;
+		return tarjCredito;
 	}
 	
-	public Ingrediente getIngredienteByName(String nombre){
+	public TarjCredito getTarjCreditoByNumber(int numero){
 		ResultSet rsObj = null;
 		PreparedStatement pstmtObj = null;
-		Ingrediente ingrediente = null;
+		TarjCredito tarjCredito = null;
 		try {
-			pstmtObj = connection.prepareStatement("SELECT * FROM ingrediente WHERE nombre="+nombre);
+			pstmtObj = connection.prepareStatement("SELECT * FROM tarjCredito WHERE numero="+numero);
 			rsObj = pstmtObj.executeQuery();
 			
-			ingrediente = new Ingrediente(rsObj.getInt(1), rsObj.getString(2), rsObj.getBoolean(3), rsObj.getBoolean(4), rsObj.getBoolean(5), rsObj.getBoolean(6));
+			tarjCredito = new TarjCredito(rsObj.getInt(1), rsObj.getInt(2));
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -120,24 +120,19 @@ public class IngredienteDAO {
 		}
 		
 		
-		return ingrediente;
+		return tarjCredito;
 	}
 	
-	public Ingrediente insertarIngrediente(Ingrediente ingrediente) {
+	public TarjCredito insertarTarjCredito(TarjCredito tarjCredito) {
 				
 		try {
-			String insertTableSQL = "INSERT INTO ingrediente"
-				+ "(nombre, vegano, vegetariano, gluten, lactosa) VALUES"
-				+ "(?,?,?,?,?)";
+			String insertTableSQL = "INSERT INTO tarjCredito"
+				+ "(numero) VALUES"
+				+ "(?)";
 	        PreparedStatement preparedStatement = connection.prepareStatement(insertTableSQL, Statement.RETURN_GENERATED_KEYS);
 	     
-	        preparedStatement.setString(1, ingrediente.getNombre());
-			preparedStatement.setBoolean(2, ingrediente.isVegano());
-			preparedStatement.setBoolean(3, ingrediente.isVegetariano());
-			preparedStatement.setBoolean(4, ingrediente.isGluten());
-			preparedStatement.setBoolean(5, ingrediente.isLactosa());
-        
-
+	        preparedStatement.setInt(1, tarjCredito.getNumero());
+			
 	        int affectedRows = preparedStatement.executeUpdate();
 
 	        if (affectedRows == 0) {
@@ -148,7 +143,7 @@ public class IngredienteDAO {
 	        try {
 	        	ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
 	        	if (generatedKeys.next()) {
-	                ingrediente.setId(generatedKeys.getInt(1));
+	                tarjCredito.setId(generatedKeys.getInt(1));
 	            }
 	            else {
 	                throw new SQLException("Creating user failed, no ID obtained.");
@@ -166,15 +161,15 @@ public class IngredienteDAO {
 			return null;
             
 		}
-		return ingrediente;
+		return tarjCredito;
 	}
 	
-	public void deleteIngredienteById(int id) {
+	public void deleteTarjCreditoById(int id) {
 		PreparedStatement pstmtObj = null;
 		
 		try {
-			pstmtObj = connection.prepareStatement("DELETE FROM ingrediente " +
-	                "WHERE idingrediente = "+id);
+			pstmtObj = connection.prepareStatement("DELETE FROM tarjCredito " +
+	                "WHERE idtarj = "+id);
 		    pstmtObj.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -195,19 +190,15 @@ public class IngredienteDAO {
 		
 	}
 	
-	public void updateIngrediente(Ingrediente ingrediente) {
+	public void updateTarjeta(TarjCredito tarjCredito) {
 		PreparedStatement pstmtObj = null;
 		try {
 			pstmtObj = connection.prepareStatement(
-		      "UPDATE ingrediente SET nombre = ?, vegano = ?, vegetariano = ?, gluten = ?, lactosa = ? WHERE idingrediente = ?");
+		      "UPDATE tarjCredito SET numero = ? WHERE idtarj = ?");
 
-			pstmtObj.setString(1, ingrediente.getNombre());
-			pstmtObj.setBoolean(2, ingrediente.isVegano());
-			pstmtObj.setBoolean(3, ingrediente.isVegetariano());
-			pstmtObj.setBoolean(4, ingrediente.isGluten());
-			pstmtObj.setBoolean(5, ingrediente.isLactosa());
-			pstmtObj.setInt(6,  ingrediente.getId());
-			
+			pstmtObj.setInt(1, tarjCredito.getNumero());
+			pstmtObj.setInt(2, tarjCredito.getId());
+						
 		    pstmtObj.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -226,5 +217,4 @@ public class IngredienteDAO {
 			}
 		}
 	}
-
 }

@@ -46,8 +46,21 @@ public class Cliente {
 		this.tarjCredito = tarjCredito;
 		this.restaurantes = restaurantes;
 	}
-	
-	
+		
+	public Cliente(int id, String usuario, String pass, boolean registrado, String nombre, String apellidos,
+			Date fechaNac, boolean genero, String localidad, String correo) {
+		super();
+		this.id = id;
+		this.usuario = usuario;
+		this.pass = pass;
+		this.registrado = registrado;
+		this.nombre = nombre;
+		this.apellidos = apellidos;
+		this.fechaNac = fechaNac;
+		this.genero = genero;
+		this.localidad = localidad;
+		this.correo = correo;
+	}
 
 	public Cliente(boolean registrado, String nombre, String apellidos, Date fechaNac, boolean genero, String localidad,
 			String correo) {
