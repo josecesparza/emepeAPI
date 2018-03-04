@@ -16,7 +16,7 @@ public class Cliente {
 	private String localidad;
 	private String correo;
 	private TarjCredito tarjCredito;
-	private ArrayList<ResCli> restaurantes;
+	private ArrayList<CliRes> restaurantes;
 	
 	public Cliente() {
 		super();
@@ -28,10 +28,11 @@ public class Cliente {
 		this.usuario = usuario;
 		this.pass = pass;
 		this.registrado = registrado;
+		restaurantes = new ArrayList<CliRes>();
 	}
 
 	public Cliente(int id, String usuario, String pass, boolean registrado, String nombre, String apellidos,
-			Date fechaNac, boolean genero, String localidad, String correo, TarjCredito tarjCredito, ArrayList<ResCli> restaurantes) {
+			Date fechaNac, boolean genero, String localidad, String correo, TarjCredito tarjCredito, ArrayList<CliRes> restaurantes) {
 		super();
 		this.id = id;
 		this.usuario = usuario;
@@ -60,6 +61,7 @@ public class Cliente {
 		this.genero = genero;
 		this.localidad = localidad;
 		this.correo = correo;
+		restaurantes = new ArrayList<CliRes>();
 	}
 
 	public Cliente(boolean registrado, String nombre, String apellidos, Date fechaNac, boolean genero, String localidad,
@@ -72,6 +74,7 @@ public class Cliente {
 		this.genero = genero;
 		this.localidad = localidad;
 		this.correo = correo;
+		restaurantes = new ArrayList<CliRes>();
 	}
 
 	public int getId() {
@@ -162,11 +165,11 @@ public class Cliente {
 		this.tarjCredito = tarjCredito;
 	}
 
-	public ArrayList<ResCli> getRestaurantes() {
+	public ArrayList<CliRes> getRestaurantes() {
 		return restaurantes;
 	}
 
-	public void setRestaurantes(ArrayList<ResCli> restaurantes) {
+	public void setRestaurantes(ArrayList<CliRes> restaurantes) {
 		this.restaurantes = restaurantes;
 	}
 

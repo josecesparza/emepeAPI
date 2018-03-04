@@ -18,6 +18,26 @@ public class Restaurante {
 	private ArrayList<CliRes> clientes;
 	ArrayList<Producto> productos;
 	
+	
+	
+	public Restaurante(int id, String nombre, String tipo, String descripcion, String horario, String codEmpresa,
+			String pass, String adreza, float latitud, float longitud, String telefono, String mail) {
+		super();
+		this.id = id;
+		this.nombre = nombre;
+		this.tipo = tipo;
+		this.descripcion = descripcion;
+		this.horario = horario;
+		this.codEmpresa = codEmpresa;
+		this.pass = pass;
+		this.adreza = adreza;
+		this.latitud = latitud;
+		this.longitud = longitud;
+		this.telefono = telefono;
+		this.mail = mail;
+		clientes = new ArrayList<CliRes>();
+	}
+
 	public Restaurante(String nombre, String codEmpresa, String pass, String adreza, float latitud, float longitud,
 			String telefono) {
 		super();
@@ -28,6 +48,7 @@ public class Restaurante {
 		this.latitud = latitud;
 		this.longitud = longitud;
 		this.telefono = telefono;
+		clientes = new ArrayList<CliRes>();
 	}
 
 	public Restaurante(String nombre, String tipo, String descripcion, String horario, String codEmpresa, String pass,
@@ -44,6 +65,7 @@ public class Restaurante {
 		this.longitud = longitud;
 		this.telefono = telefono;
 		this.mail = mail;
+		clientes = new ArrayList<CliRes>();
 	}
 
 	public Restaurante(String nombre, String tipo, String descripcion, String horario, String codEmpresa, String pass,
