@@ -14,6 +14,20 @@ public class Producto {
 	private ArrayList<Ingrediente> ingredientes;
 	private Restaurante restaurante;
 	
+	
+	
+	public Producto(int id, String nombre, float precio, float peso, String descripcion, Date fechaElab,
+			Date fechaCad) {
+		super();
+		this.id = id;
+		this.nombre = nombre;
+		this.precio = precio;
+		this.peso = peso;
+		this.descripcion = descripcion;
+		this.fechaElab = fechaElab;
+		this.fechaCad = fechaCad;
+	}
+
 	public Producto(String nombre, float precio, Date fechaElab, Date fechaCad, ArrayList<Ingrediente> ingredientes,
 			Restaurante restaurante) {
 		super();

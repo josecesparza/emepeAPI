@@ -1,25 +1,33 @@
 package com.epcompany.emepeAPI.model;
 
-import java.util.ArrayList;
-
 public class CliRes {
-	private ArrayList<Cliente> clientes;
+	private Cliente cliente;
+	private Restaurante restaurante;
 	private boolean favorito;
 	private float valoracion;
 	
-	public CliRes(ArrayList<Cliente> clientes, boolean favorito, float valoracion) {
+	public CliRes(Cliente cliente, Restaurante restaurante, boolean favorito, float valoracion) {
 		super();
-		this.clientes = clientes;
+		this.cliente = cliente;
+		this.restaurante = restaurante;
 		this.favorito = favorito;
 		this.valoracion = valoracion;
 	}
 
-	public ArrayList<Cliente> getClientes() {
-		return clientes;
+	public Cliente getCliente() {
+		return cliente;
 	}
 
-	public void setClientes(ArrayList<Cliente> clientes) {
-		this.clientes = clientes;
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
+	public Restaurante getRestaurante() {
+		return restaurante;
+	}
+
+	public void setRestaurante(Restaurante restaurante) {
+		this.restaurante = restaurante;
 	}
 
 	public boolean isFavorito() {
@@ -37,10 +45,7 @@ public class CliRes {
 	public void setValoracion(float valoracion) {
 		this.valoracion = valoracion;
 	}
-
-	@Override
-	public String toString() {
-		return "CliRes [clientes=" + clientes + ", favorito=" + favorito + ", valoracion=" + valoracion + "]";
-	}
+	
+	
 	
 }
