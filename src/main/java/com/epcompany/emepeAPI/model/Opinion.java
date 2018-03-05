@@ -35,6 +35,19 @@ public class Opinion {
 		this.producto = producto;
 	}
 
+	
+
+
+	public Opinion(int id, String opinion, float valoracion, Opinion opinionAnt, Cliente cliente, Producto producto) {
+		super();
+		this.id = id;
+		this.opinion = opinion;
+		this.valoracion = valoracion;
+		this.opinionAnt = opinionAnt;
+		this.cliente = cliente;
+		this.producto = producto;
+	}
+
 
 
 	public int getId() {

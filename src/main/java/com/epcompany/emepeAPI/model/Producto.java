@@ -13,7 +13,7 @@ public class Producto {
 	private Date fechaCad;
 	private ArrayList<Ingrediente> ingredientes;
 	private Restaurante restaurante;
-	
+	private ArrayList<Opinion> opiniones;
 	
 	
 	public Producto(int id, String nombre, float precio, float peso, String descripcion, Date fechaElab,
@@ -50,6 +50,36 @@ public class Producto {
 		this.fechaCad = fechaCad;
 		this.ingredientes = ingredientes;
 		this.restaurante = restaurante;
+	}
+	
+	
+	public Producto(String nombre, float precio, float peso, String descripcion, Date fechaElab, Date fechaCad,
+			ArrayList<Ingrediente> ingredientes, Restaurante restaurante, ArrayList<Opinion> opiniones) {
+		super();
+		this.nombre = nombre;
+		this.precio = precio;
+		this.peso = peso;
+		this.descripcion = descripcion;
+		this.fechaElab = fechaElab;
+		this.fechaCad = fechaCad;
+		this.ingredientes = ingredientes;
+		this.restaurante = restaurante;
+		this.opiniones = opiniones;
+	}
+
+	public Producto(int id, String nombre, float precio, float peso, String descripcion, Date fechaElab, Date fechaCad,
+			ArrayList<Ingrediente> ingredientes, Restaurante restaurante, ArrayList<Opinion> opiniones) {
+		super();
+		this.id = id;
+		this.nombre = nombre;
+		this.precio = precio;
+		this.peso = peso;
+		this.descripcion = descripcion;
+		this.fechaElab = fechaElab;
+		this.fechaCad = fechaCad;
+		this.ingredientes = ingredientes;
+		this.restaurante = restaurante;
+		this.opiniones = opiniones;
 	}
 
 	public int getId() {
@@ -129,6 +159,14 @@ public class Producto {
 		return "Producto [id=" + id + ", nombre=" + nombre + ", precio=" + precio + ", peso=" + peso + ", descripcion="
 				+ descripcion + ", fechaElab=" + fechaElab + ", fechaCad=" + fechaCad + ", ingredientes=" + ingredientes
 				+ ", restaurante=" + restaurante + "]";
+	}
+
+	public ArrayList<Opinion> getOpiniones() {
+		return opiniones;
+	}
+
+	public void setOpiniones(ArrayList<Opinion> opiniones) {
+		this.opiniones = opiniones;
 	}
 		
 }
