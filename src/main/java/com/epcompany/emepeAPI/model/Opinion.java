@@ -4,10 +4,20 @@ public class Opinion {
 	private int id;
 	private String opinion;
 	private float valoracion;
-	private Opinion opinionAnt;
 	private Cliente cliente;
 	private Producto producto;
 	
+	
+	
+	public Opinion(int id, String opinion, float valoracion) {
+		super();
+		this.id = id;
+		this.opinion = opinion;
+		this.valoracion = valoracion;
+	}
+
+
+
 	public Opinion(String opinion, Cliente cliente, Producto producto) {
 		super();
 		this.opinion = opinion;
@@ -17,20 +27,10 @@ public class Opinion {
 	
 	
 
-	public Opinion(String opinion, Opinion opinionAnt, Cliente cliente, Producto producto) {
-		super();
-		this.opinion = opinion;
-		this.opinionAnt = opinionAnt;
-		this.cliente = cliente;
-		this.producto = producto;
-	}
-
-
-	public Opinion(String opinion, float valoracion, Opinion opinionAnt, Cliente cliente, Producto producto) {
+	public Opinion(String opinion, float valoracion, Cliente cliente, Producto producto) {
 		super();
 		this.opinion = opinion;
 		this.valoracion = valoracion;
-		this.opinionAnt = opinionAnt;
 		this.cliente = cliente;
 		this.producto = producto;
 	}
@@ -38,16 +38,14 @@ public class Opinion {
 	
 
 
-	public Opinion(int id, String opinion, float valoracion, Opinion opinionAnt, Cliente cliente, Producto producto) {
+	public Opinion(int id, String opinion, float valoracion, Cliente cliente, Producto producto) {
 		super();
 		this.id = id;
 		this.opinion = opinion;
 		this.valoracion = valoracion;
-		this.opinionAnt = opinionAnt;
 		this.cliente = cliente;
 		this.producto = producto;
 	}
-
 
 
 	public int getId() {
@@ -86,18 +84,6 @@ public class Opinion {
 
 
 
-	public Opinion getOpinionAnt() {
-		return opinionAnt;
-	}
-
-
-
-	public void setOpinionAnt(Opinion opinionAnt) {
-		this.opinionAnt = opinionAnt;
-	}
-
-
-
 	public Cliente getCliente() {
 		return cliente;
 	}
@@ -124,8 +110,7 @@ public class Opinion {
 
 	@Override
 	public String toString() {
-		return "Opinion [id=" + id + ", opinion=" + opinion + ", valoracion=" + valoracion + ", opinionAnt="
-				+ opinionAnt + ", cliente=" + cliente + ", producto=" + producto + "]";
+		return "Opinion [id=" + id + ", opinion=" + opinion + ", valoracion=" + valoracion + ", cliente=" + cliente + ", producto=" + producto + "]";
 	}
 			
 }
