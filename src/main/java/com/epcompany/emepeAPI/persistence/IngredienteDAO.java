@@ -12,6 +12,10 @@ public class IngredienteDAO {
 	
 	private Connection connection;
 	
+	public Connection getConnection() {
+		return connection;
+	}
+
 	public IngredienteDAO() {
 		new ConnectionManager();
 		this.connection = ConnectionManager.getConnection();
